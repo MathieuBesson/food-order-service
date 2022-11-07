@@ -30,10 +30,16 @@ npm run serve
 npm run fixtures
 ```
 
+* API is accessible on [localhost:3000/](localhost:3000/)
+
+---
+
 Launch compilation Typescript to Javascript 
 ```shell
 npm run dev
 ```
+
+---
 
 ## Authors
 
