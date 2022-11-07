@@ -1,12 +1,12 @@
-import { BaseModel, BaseValidator } from "../models/baseModel";
-import { interfaceControllerApi } from "./interfaceControllerApi";
+import { BaseModel, BaseValidator } from "../models/BaseModel";
+import { InterfaceControllerApi } from "./InterfaceControllerApi";
 import { StatusCodes } from "http-status-codes";
-import { BaseType } from "../types/baseType";
+import { BaseType } from "../types/BaseType";
 import { Request, Response } from "express";
 import { ValidationError } from "class-validator";
 
 export class BaseControllerApi<Type extends BaseType>
-    implements interfaceControllerApi<Type>
+    implements InterfaceControllerApi<Type>
 {
     public model!: BaseModel<Type>;
 

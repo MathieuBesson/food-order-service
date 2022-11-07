@@ -6,9 +6,9 @@ import {
     MinLength,
 } from "class-validator";
 import { model, Model, Schema } from "mongoose";
-import { FoodType } from "../types/foodType";
-import { BaseModel, BaseValidator } from "./baseModel";
-import { ModelInterface } from "./modelInterface";
+import { FoodType } from "../types/FoodType";
+import { BaseModel, BaseValidator } from "./BaseModel";
+import { ModelInterface } from "./ModelInterface";
 
 const FoodSchema = new Schema<FoodType>(
     {

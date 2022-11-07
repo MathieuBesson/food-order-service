@@ -1,13 +1,13 @@
-import { Food } from "../models/food";
-import { Dish } from "../models/dish";
+import { Food } from "../models/Food";
+import { Dish } from "../models/Dish";
 import { foods, dishs, users } from "./data.js";
 import { connexionBdd } from "../utils/bdd";
 import * as dotenv from "dotenv";
-import { User } from "../models/user";
-import { Token } from "../models/token";
-import { TokenType } from "../types/tokenType";
-import { UserType } from "../types/userType";
-import { DishType } from "../types/dishType";
+import { User } from "../models/User";
+import { Token } from "../models/Token";
+import { TokenType } from "../types/TokenType";
+import { UserType } from "../types/UserType";
+import { DishType } from "../types/DishType";
 dotenv.config();
 
 async function main() {

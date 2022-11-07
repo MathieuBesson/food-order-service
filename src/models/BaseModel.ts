@@ -1,7 +1,7 @@
 import { validate, ValidationError } from "class-validator";
 import { Model } from "mongoose";
-import { BaseType } from "../types/baseType";
-import { ModelInterface } from "./modelInterface";
+import { BaseType } from "../types/BaseType";
+import { ModelInterface } from "./ModelInterface";
 
 export abstract class BaseModel<Type extends BaseType>
     implements ModelInterface<Type>

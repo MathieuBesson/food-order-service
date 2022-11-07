@@ -8,9 +8,9 @@ import {
     ValidateNested,
 } from "class-validator";
 import { model, Model, Models, Schema } from "mongoose";
-import { DishType } from "../types/dishType";
-import { BaseModel, BaseValidator } from "./baseModel";
-import { ModelInterface } from "./modelInterface";
+import { DishType } from "../types/DishType";
+import { BaseModel, BaseValidator } from "./BaseModel";
+import { ModelInterface } from "./ModelInterface";
 
 const DishSchema = new Schema<DishType>(
     {

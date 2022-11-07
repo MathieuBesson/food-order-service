@@ -1,4 +1,4 @@
-import { BaseType } from "./baseType";
+import { BaseType } from "./BaseType";
 
 export interface UserType extends BaseType {
     login: string;

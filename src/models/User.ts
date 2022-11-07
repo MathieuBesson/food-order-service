@@ -1,8 +1,8 @@
 import mongoose, { model, Model, Schema } from "mongoose";
-import { UserType } from "../types/userType";
-import { BaseModel, BaseValidator } from "./baseModel";
+import { UserType } from "../types/UserType";
+import { BaseModel, BaseValidator } from "./BaseModel";
 import bcrypt from "bcrypt";
-import { ModelInterface } from "./modelInterface";
+import { ModelInterface } from "./ModelInterface";
 import { IsString, MaxLength, MinLength } from "class-validator";
 
 const UserSchema = new Schema<UserType>(

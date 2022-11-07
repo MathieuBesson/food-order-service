@@ -1,11 +1,11 @@
 import { validate } from "class-validator";
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { Token } from "../models/token";
-import { User, UserValidator } from "../models/user";
-import { UserType } from "../types/userType";
+import { Token } from "../models/Token";
+import { User, UserValidator } from "../models/User";
+import { UserType } from "../types/UserType";
 
-export class ControllerAuthentication {
+export class AuthenticationController {
     public user: User = new User();
     public token: Token = new Token();
 

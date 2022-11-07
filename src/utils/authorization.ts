@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import { Token } from "../models/token";
+import { Token } from "../models/Token";
 import { Request, Response } from "express";
 import { Express } from "express-serve-static-core";
 

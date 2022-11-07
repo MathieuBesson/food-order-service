@@ -1,8 +1,8 @@
 import { model, Model, Schema } from "mongoose";
-import { TokenType } from "../types/tokenType";
-import { BaseModel, BaseValidator } from "./baseModel";
+import { TokenType } from "../types/TokenType";
+import { BaseModel, BaseValidator } from "./BaseModel";
 import * as token from "random-web-token";
-import { ModelInterface } from "./modelInterface";
+import { ModelInterface } from "./ModelInterface";
 import { IsString, MaxLength, MinLength } from "class-validator";
 
 const TokenSchema = new Schema<TokenType>(

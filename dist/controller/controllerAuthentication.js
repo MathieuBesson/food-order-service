@@ -1,20 +1,46 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
+var __awaiter =
+    (this && this.__awaiter) ||
+    function (thisArg, _arguments, P, generator) {
+        function adopt(value) {
+            return value instanceof P
+                ? value
+                : new P(function (resolve) {
+                      resolve(value);
+                  });
+        }
+        return new (P || (P = Promise))(function (resolve, reject) {
+            function fulfilled(value) {
+                try {
+                    step(generator.next(value));
+                } catch (e) {
+                    reject(e);
+                }
+            }
+            function rejected(value) {
+                try {
+                    step(generator["throw"](value));
+                } catch (e) {
+                    reject(e);
+                }
+            }
+            function step(result) {
+                result.done
+                    ? resolve(result.value)
+                    : adopt(result.value).then(fulfilled, rejected);
+            }
+            step(
+                (generator = generator.apply(thisArg, _arguments || [])).next()
+            );
+        });
+    };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ControllerAuthentication = void 0;
+exports.AuthenticationController = void 0;
 const class_validator_1 = require("class-validator");
 const http_status_codes_1 = require("http-status-codes");
 const token_1 = require("../models/token");
 const user_1 = require("../models/user");
-class ControllerAuthentication {
+class AuthenticationController {
     constructor() {
         this.user = new user_1.User();
         this.token = new token_1.Token();
@@ -31,14 +57,24 @@ class ControllerAuthentication {
                 return;
             }
             // Check login is not use
-            if ((yield new user_1.User().search({ login: req.body.login })) !== null) {
+            if (
+                (yield new user_1.User().search({ login: req.body.login })) !==
+                null
+            ) {
                 res.status(http_status_codes_1.StatusCodes.BAD_REQUEST).send({
                     error: "Your username is invalid",
                 });
                 return;
             }
             // User's creation
-            res.status(http_status_codes_1.StatusCodes.CREATED).send(yield this.user.insertOne(Object.assign(Object.assign({}, req.body), { tokenList: [], password: user_1.User.crypt(req.body.password) })));
+            res.status(http_status_codes_1.StatusCodes.CREATED).send(
+                yield this.user.insertOne(
+                    Object.assign(Object.assign({}, req.body), {
+                        tokenList: [],
+                        password: user_1.User.crypt(req.body.password),
+                    })
+                )
+            );
         });
     }
     /**
@@ -69,7 +105,9 @@ class ControllerAuthentication {
             currentUser.tokenList.push(token._id.toString());
             // Add token in the list of user's
             yield this.user.updateOne(currentUser);
-            res.status(http_status_codes_1.StatusCodes.OK).send({ token: token.token });
+            res.status(http_status_codes_1.StatusCodes.OK).send({
+                token: token.token,
+            });
             return;
         });
     }
@@ -88,11 +126,13 @@ class ControllerAuthentication {
             // verify input parameters
             const errors = yield (0, class_validator_1.validate)(noteNew);
             if (errors.length) {
-                res.status(http_status_codes_1.StatusCodes.BAD_REQUEST).send(errors);
+                res.status(http_status_codes_1.StatusCodes.BAD_REQUEST).send(
+                    errors
+                );
                 return false;
             }
             return true;
         });
     }
 }
-exports.ControllerAuthentication = ControllerAuthentication;
+exports.AuthenticationController = AuthenticationController;
