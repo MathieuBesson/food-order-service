@@ -6,3 +6,4 @@ import { FoodType } from "../types/FoodType";
 export class FoodController extends BaseControllerApi<FoodType> {
     public model: BaseModel<FoodType> = new Food();
 }
+    

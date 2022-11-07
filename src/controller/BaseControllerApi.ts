@@ -46,7 +46,7 @@ export class BaseControllerApi<Type extends BaseType>
         );
     }
 
-    private async areParametersValid(
+    protected async areParametersValid(
         req: Request,
         res: Response
     ): Promise<Boolean> {
@@ -55,20 +55,21 @@ export class BaseControllerApi<Type extends BaseType>
             this.model.typeValidator
         );
         if (errors.length > 0) {
-            this.sendBadRequestError(errors, res);
+            this.sendBadRequestError(errors, "ValidationData", res);
             return false;
         }
 
         return true;
     }
 
-    private sendBadRequestError(
+    protected sendBadRequestError(
         errors: ValidationError[] | string[],
+        type: string,
         res: Response
     ) {
         res.status(StatusCodes.BAD_REQUEST).send({
             status: StatusCodes.BAD_REQUEST,
-            type: "ValidationData",
+            type,
             errors,
         });
     }

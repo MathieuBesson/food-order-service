@@ -9,7 +9,9 @@ import {
 } from "class-validator";
 import { model, Model, Models, Schema } from "mongoose";
 import { DishType } from "../types/DishType";
+import { FoodType } from "../types/FoodType";
 import { BaseModel, BaseValidator } from "./BaseModel";
+import { Food } from "./Food";
 import { ModelInterface } from "./ModelInterface";
 
 const DishSchema = new Schema<DishType>(
@@ -23,6 +25,7 @@ const DishSchema = new Schema<DishType>(
         ],
         type: String,
         quantity: Number,
+
         date: { type: Date, default: Date.now },
     },
     { versionKey: false }
@@ -36,6 +39,48 @@ export class Dish
 {
     modelMongo: Model<DishType> = DishModelMongo;
     typeValidator: BaseValidator = new DishValidator();
+
+    public async getOneWithDisponibility(id: string): Promise<DishType | null> {
+        let dish: DishType | null = await this.modelMongo
+            .findOne({ _id: id })
+            .lean();
+
+        if (dish === null) {
+            return null;
+        }
+
+        let foodsNeeded: {
+            food: FoodType;
+            quantity: number;
+        }[] = [];
+        const foodModel: Food = new Food();
+
+        // Get all Foods needed
+        for (const food of dish.foods) {
+            const foodRequested = await foodModel.modelMongo.findOne({
+                _id: food._id,
+            });
+
+            if (foodRequested === null) {
+                console.error(`The food with the id ${food._id} is unknown`);
+                return null;
+            }
+
+            foodsNeeded.push({
+                food: foodRequested,
+                quantity: food.quantity,
+            });
+        }
+
+        return {
+            ...dish,
+            disponibility: Math.min(
+                ...foodsNeeded.map((foodData) =>
+                    Math.floor(foodData.food.quantity / foodData.quantity)
+                )
+            ),
+        };
+    }
 }
 
 export class DishValidator

@@ -8,4 +8,5 @@ export interface DishType extends BaseType {
     }[];
     quantity: Number;
     type: String;
+    disponibility: Number;
 }

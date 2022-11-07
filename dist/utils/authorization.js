@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.authorizations = exports.checkAuthorization = void 0;
 const http_status_codes_1 = require("http-status-codes");
-const token_1 = require("../models/token");
+const Token_1 = require("../models/Token");
 function checkAuthorization(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         if (["/auth/register", "/auth/token"].includes(req.url) == false &&
@@ -26,7 +26,7 @@ function checkAuthorization(req, res) {
             token = req.headers["authorization"].split(" ")[1];
         }
         // const token = req.headers['authorization'].split(" ")[1];
-        if ((yield new token_1.Token().isTokenValide(token)) === false) {
+        if ((yield new Token_1.Token().isTokenValide(token)) === false) {
             res.status(http_status_codes_1.StatusCodes.FORBIDDEN)
                 .send({ error: "The transmitted token is invalid" })
                 .end();

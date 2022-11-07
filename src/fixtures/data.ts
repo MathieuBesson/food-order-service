@@ -156,6 +156,35 @@ export const dishs = [
     },
 ];
 
+export const orders = [
+    {
+        dishs: [
+            {
+                quantity: 1,
+                fixtureId: 0,
+            },
+            {
+                quantity: 1,
+                fixtureId: 1,
+            },
+        ],
+        date: new Date("2022-10-24T10:27:23.906+00:00"),
+    },
+    {
+        dishs: [
+            {
+                quantity: 2,
+                fixtureId: 1,
+            },
+            {
+                quantity: 3,
+                fixtureId: 2,
+            },
+        ],
+        date: new Date("2022-10-24T10:27:23.906+00:00"),
+    },
+];
+
 export const users = [
     {
         login: "admin",
