@@ -5,5 +5,7 @@
 -   [X] Renommer les controllers avec XXXController
 -   [X] Ajout d'une vérification en POST pour la disponibilité
 -   [X] Un README qui tue
+-   [X] Au moment du POST sur Order => diminuer les quantités disponibles 
+-   [X] Implémenter la fonction getAllWithDisponibilities pour Dish 
 -   Renommer les models avec xxxModel
 -   La création de la base en dynamique

@@ -9,6 +9,7 @@ import {
 } from "class-validator";
 import { model, Model, Models, Schema } from "mongoose";
 import { DishType } from "../types/DishType";
+import { FoodShortType } from "../types/FoodShortType";
 import { FoodType } from "../types/FoodType";
 import { BaseModel, BaseValidator } from "./BaseModel";
 import { Food } from "./Food";
@@ -49,28 +50,26 @@ export class Dish
             return null;
         }
 
-        let foodsNeeded: {
-            food: FoodType;
-            quantity: number;
-        }[] = [];
-        const foodModel: Food = new Food();
+        return await this.setDisponibilityForOne(dish.foods, dish);
+    }
 
-        // Get all Foods needed
-        for (const food of dish.foods) {
-            const foodRequested = await foodModel.modelMongo.findOne({
-                _id: food._id,
-            });
+    public async getAllWithDisponibilities(): Promise<DishType[]> {
+        let dishs: DishType[] = await this.modelMongo.find().lean();
 
-            if (foodRequested === null) {
-                console.error(`The food with the id ${food._id} is unknown`);
-                return null;
-            }
-
-            foodsNeeded.push({
-                food: foodRequested,
-                quantity: food.quantity,
-            });
+        for (const key in dishs) {
+            dishs[key] = await this.setDisponibilityForOne(
+                dishs[key].foods,
+                dishs[key]
+            );
         }
+        return dishs;
+    }
+
+    private async setDisponibilityForOne(
+        foodsData: FoodShortType[],
+        dish: DishType
+    ): Promise<DishType> {
+        const foodsNeeded = await this.getAllFoodsNeeded(foodsData);
 
         return {
             ...dish,
@@ -80,6 +79,59 @@ export class Dish
                 )
             ),
         };
+    }
+
+    private async getAllFoodsNeeded(
+        foodsData: FoodShortType[]
+    ): Promise<{ food: FoodType; quantity: number }[]> {
+        const foodModel: Food = new Food();
+
+        let foodsNeeded: {
+            food: FoodType;
+            quantity: number;
+        }[] = [];
+
+        // Get all Foods needed
+        for (const food of foodsData) {
+            const foodRequested = await foodModel.modelMongo.findOne({
+                _id: food._id,
+            });
+
+            if (foodRequested === null) {
+                throw new Error(`The food with the id ${food._id} is unknown`);
+            }
+
+            foodsNeeded.push({
+                food: foodRequested,
+                quantity: food.quantity,
+            });
+        }
+
+        return foodsNeeded;
+    }
+
+    public async decreaseFoodAmount(dish: DishType) {
+        const foodIds: string[] = [];
+        const foodMapQuantity: { [foodId: string]: number } = {};
+        const foodModel: Food = new Food();
+
+        dish.foods.forEach((foodData) => {
+            foodIds.push(foodData._id);
+            foodMapQuantity[foodData._id] = foodData.quantity;
+        });
+
+        let foods: FoodType[] = await foodModel.modelMongo.find({
+            _id: { $in: foodIds },
+        });
+
+        foods.forEach((food, key) => {
+            if (!food._id) {
+                throw new Error(`The food with the id ${food._id} is unknown`);
+            }
+            foods[key].quantity -= foodMapQuantity[food._id];
+        });
+
+        foodModel.modelMongo.updateMany(foods);
     }
 }
 
@@ -92,10 +144,7 @@ export class DishValidator
     @MaxLength(100)
     name: string = "";
 
-    foods: {
-        _id: String;
-        quantity: Number;
-    }[] = [];
+    foods: FoodShortType[] = [];
 
     @IsString()
     @MinLength(8)

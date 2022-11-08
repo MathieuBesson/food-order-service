@@ -66,7 +66,4 @@ export function routes(app: Express) {
     app.delete("/order/:id", (req: Request, res: Response) =>
         new OrderController().deleteOne(req, res)
     );
-    app.put("/order", (req: Request, res: Response) =>
-        new OrderController().updateOne(req, res)
-    );
 }

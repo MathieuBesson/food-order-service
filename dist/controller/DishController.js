@@ -23,5 +23,10 @@ class DishController extends BaseControllerApi_1.BaseControllerApi {
             res.status(http_status_codes_1.StatusCodes.CREATED).send(yield this.model.getOneWithDisponibility(req.params.id));
         });
     }
+    getAll(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            res.status(http_status_codes_1.StatusCodes.CREATED).send(yield this.model.getAllWithDisponibilities());
+        });
+    }
 }
 exports.DishController = DishController;

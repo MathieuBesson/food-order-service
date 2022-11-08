@@ -3,25 +3,18 @@ import { BaseControllerApi } from "./BaseControllerApi";
 import { OrderType } from "../types/OrderType";
 import { Order } from "../models/Order";
 import { Request, Response } from "express";
-import { StatusCodes } from "http-status-codes";
 import { Dish } from "../models/Dish";
 import { DishType } from "../types/DishType";
 
 export class OrderController extends BaseControllerApi<OrderType> {
     public model: BaseModel<OrderType> = new Order();
 
-    public async updateOne(req: Request, res: Response) {
-        if ((await this.isQuantityUnavailable(req, res)) === false) {
-            return;
-        }
-        super.updateOne(req, res);
-    }
-
     public async insertOne(req: Request, res: Response) {
         if ((await this.isQuantityUnavailable(req, res)) === false) {
             return;
         }
-        super.insertOne(req, res);
+        await this.decreaseFoodAmount(req);
+        await super.insertOne(req, res);
     }
 
     protected async isQuantityUnavailable(
@@ -55,5 +48,19 @@ export class OrderController extends BaseControllerApi<OrderType> {
         }
 
         return true;
+    }
+
+    private async decreaseFoodAmount(req: Request) {
+        const dish: Dish = new Dish();
+        req.body.dishs.forEach(
+            async (dishData: { _id: string; quantity: number }) => {
+                const dishObject: DishType | null = await dish.getOne(
+                    dishData._id
+                );
+                if (dishObject !== null) {
+                    dish.decreaseFoodAmount(dishObject);
+                }
+            }
+        );
     }
 }

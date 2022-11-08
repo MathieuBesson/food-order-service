@@ -47,23 +47,63 @@ class Dish extends BaseModel_1.BaseModel {
             if (dish === null) {
                 return null;
             }
-            let foodsNeeded = [];
+            return yield this.setDisponibilityForOne(dish.foods, dish);
+        });
+    }
+    getAllWithDisponibilities() {
+        return __awaiter(this, void 0, void 0, function* () {
+            let dishs = yield this.modelMongo.find().lean();
+            for (const key in dishs) {
+                dishs[key] = yield this.setDisponibilityForOne(dishs[key].foods, dishs[key]);
+            }
+            return dishs;
+        });
+    }
+    setDisponibilityForOne(foodsData, dish) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const foodsNeeded = yield this.getAllFoodsNeeded(foodsData);
+            return Object.assign(Object.assign({}, dish), { disponibility: Math.min(...foodsNeeded.map((foodData) => Math.floor(foodData.food.quantity / foodData.quantity))) });
+        });
+    }
+    getAllFoodsNeeded(foodsData) {
+        return __awaiter(this, void 0, void 0, function* () {
             const foodModel = new Food_1.Food();
+            let foodsNeeded = [];
             // Get all Foods needed
-            for (const food of dish.foods) {
+            for (const food of foodsData) {
                 const foodRequested = yield foodModel.modelMongo.findOne({
                     _id: food._id,
                 });
                 if (foodRequested === null) {
-                    console.error(`The food with the id ${food._id} is unknown`);
-                    return null;
+                    throw new Error(`The food with the id ${food._id} is unknown`);
                 }
                 foodsNeeded.push({
                     food: foodRequested,
                     quantity: food.quantity,
                 });
             }
-            return Object.assign(Object.assign({}, dish), { disponibility: Math.min(...foodsNeeded.map((foodData) => Math.floor(foodData.food.quantity / foodData.quantity))) });
+            return foodsNeeded;
+        });
+    }
+    decreaseFoodAmount(dish) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const foodIds = [];
+            const foodMapQuantity = {};
+            const foodModel = new Food_1.Food();
+            dish.foods.forEach((foodData) => {
+                foodIds.push(foodData._id);
+                foodMapQuantity[foodData._id] = foodData.quantity;
+            });
+            let foods = yield foodModel.modelMongo.find({
+                _id: { $in: foodIds },
+            });
+            foods.forEach((food, key) => {
+                if (!food._id) {
+                    throw new Error(`The food with the id ${food._id} is unknown`);
+                }
+                foods[key].quantity -= foodMapQuantity[food._id];
+            });
+            foodModel.modelMongo.updateMany(foods);
         });
     }
 }

@@ -30,6 +30,5 @@ function routes(app) {
     app.get("/order/:id", (req, res) => new OrderController_1.OrderController().getOne(req, res));
     app.post("/order", (req, res) => new OrderController_1.OrderController().insertOne(req, res));
     app.delete("/order/:id", (req, res) => new OrderController_1.OrderController().deleteOne(req, res));
-    app.put("/order", (req, res) => new OrderController_1.OrderController().updateOne(req, res));
 }
 exports.routes = routes;

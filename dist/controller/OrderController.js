@@ -18,17 +18,6 @@ class OrderController extends BaseControllerApi_1.BaseControllerApi {
         super(...arguments);
         this.model = new Order_1.Order();
     }
-    updateOne(req, res) {
-        const _super = Object.create(null, {
-            updateOne: { get: () => super.updateOne }
-        });
-        return __awaiter(this, void 0, void 0, function* () {
-            if ((yield this.isQuantityUnavailable(req, res)) === false) {
-                return;
-            }
-            _super.updateOne.call(this, req, res);
-        });
-    }
     insertOne(req, res) {
         const _super = Object.create(null, {
             insertOne: { get: () => super.insertOne }
@@ -37,7 +26,8 @@ class OrderController extends BaseControllerApi_1.BaseControllerApi {
             if ((yield this.isQuantityUnavailable(req, res)) === false) {
                 return;
             }
-            _super.insertOne.call(this, req, res);
+            yield this.decreaseFoodAmount(req);
+            yield _super.insertOne.call(this, req, res);
         });
     }
     isQuantityUnavailable(req, res) {
@@ -59,6 +49,17 @@ class OrderController extends BaseControllerApi_1.BaseControllerApi {
                 return false;
             }
             return true;
+        });
+    }
+    decreaseFoodAmount(req) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const dish = new Dish_1.Dish();
+            req.body.dishs.forEach((dishData) => __awaiter(this, void 0, void 0, function* () {
+                const dishObject = yield dish.getOne(dishData._id);
+                if (dishObject !== null) {
+                    dish.decreaseFoodAmount(dishObject);
+                }
+            }));
         });
     }
 }

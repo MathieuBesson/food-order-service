@@ -13,4 +13,10 @@ export class DishController extends BaseControllerApi<DishType> {
             await this.model.getOneWithDisponibility(req.params.id)
         );
     }
+
+    public async getAll(req: Request, res: Response) {
+        res.status(StatusCodes.CREATED).send(
+            await this.model.getAllWithDisponibilities()
+        );
+    }
 }
