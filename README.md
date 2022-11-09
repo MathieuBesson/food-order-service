@@ -1,10 +1,10 @@
-# Food order service (Backend API)
+# FoodRepository OrderRepository service (Backend API)
 
-A simple food order service
+A simple FoodRepository OrderRepository service
 
 ## Description
 
-This project is an application composed of a backend API in nodejs TypeScript and a front end ReactJs. 
+This project is an application composed of a backend API in nodejs TypeScript and a front end ReactJs.
 You are here on the project's API repository
 
 ## Getting Started
@@ -30,6 +30,7 @@ npm i
 npm run serve
 ```
 
+-   Create database in with the same name like **.env** file
 -   Execute fixtures in database
 
 ```shell
@@ -50,4 +51,4 @@ npm run dev
 
 ## Authors
 
-Dominique Pizzie [@MathieuBesson3](https://twitter.com/BessonMathieu3)
+Mathieu Besson [@MathieuBesson3](https://twitter.com/BessonMathieu3)

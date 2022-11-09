@@ -6,12 +6,13 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "dev": "npx tsc --watch",
-        "serve": "nodemon ./dist/app.js",
-        "fixtures": "node ./dist/fixtures/launch.js"
+        "serve": "nodemon ./dist/index.js",
+        "fixtures": "node ./dist/bin/fixtures/launch.js"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "@types/reflect-metadata": "^0.1.0",
         "bcrypt": "^5.1.0",
         "body-parser": "^1.20.1",
         "check-types": "^11.1.2",
@@ -26,6 +27,7 @@
         "nodemon": "^2.0.20",
         "random-token": "^0.0.8",
         "random-web-token": "^2.2.1",
+        "reflect-metadata": "^0.1.13",
         "supervisor": "^0.12.0",
         "typescript": "^4.8.4"
     },
