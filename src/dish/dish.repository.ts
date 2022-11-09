@@ -45,6 +45,7 @@ export class DishRepository
         dish: DishType
     ): Promise<DishType> {
         const foodsNeeded = await this.getAllFoodsNeeded(foodsData);
+        console.log(foodsNeeded);
 
         return {
             ...dish,
