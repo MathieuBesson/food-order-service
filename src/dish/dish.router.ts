@@ -8,6 +8,9 @@ export const dishRouter = {
         app.get("/dish", (req: Request, res: Response) =>
             new DishController().getAll(req, res)
         );
+        app.get("/dish/type", (req: Request, res: Response) =>
+            new DishController().getAllOrderByField(req, res, "type")
+        );
         app.get("/dish/:id", (req: Request, res: Response) =>
             new DishController().getOne(req, res)
         );

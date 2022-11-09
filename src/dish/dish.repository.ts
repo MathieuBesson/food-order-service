@@ -13,6 +13,9 @@ export class DishRepository
     extends BaseRepository<DishType>
     implements RepositoryInterface<DishType>
 {
+    getAllOrderByType(): any {
+        throw new Error("Method not implemented.");
+    }
     schema: Model<DishType> = model("Dish", DishSchema);
     typeValidator: BaseValidator = new DishValidator();
 

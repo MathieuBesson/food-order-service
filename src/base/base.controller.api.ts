@@ -21,6 +21,16 @@ export class BaseControllerApi<Type extends BaseType>
         );
     }
 
+    public async getAllOrderByField(
+        req: Request,
+        res: Response,
+        field: string
+    ) {
+        res.status(StatusCodes.CREATED).send(
+            await this.model.getAllOrderByField(field)
+        );
+    }
+
     public async insertOne(req: Request, res: Response) {
         if ((await this.areValidParameters(req, res)) === false) {
             return;

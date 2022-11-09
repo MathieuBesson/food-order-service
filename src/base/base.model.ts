@@ -37,4 +37,24 @@ export abstract class BaseRepository<Type extends BaseType>
     public async deleteOne(id: string) {
         return await this.schema.deleteOne({ name: id });
     }
+
+    public async getAllOrderByField(field: string) {
+        const objectsRequested: any[] = await this.schema
+            .find()
+            .sort({ [field]: 1 })
+            .lean();
+
+        const objectOrdered: {
+            [key: string]: Type[];
+        } = {};
+
+        objectsRequested.forEach((food) => {
+            if (objectOrdered[food[field]] === undefined) {
+                objectOrdered[food[field]] = [];
+            }
+            objectOrdered[food[field]].push(food);
+        });
+
+        return objectOrdered;
+    }
 }

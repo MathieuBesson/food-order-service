@@ -8,6 +8,9 @@ export const foodRouter = {
         app.get("/food", (req: Request, res: Response) =>
             new FoodController().getAll(req, res)
         );
+        app.get("/food/type", (req: Request, res: Response) =>
+            new FoodController().getAllOrderByField(req, res, "type")
+        );
         app.get("/food/:id", (req: Request, res: Response) =>
             new FoodController().getOne(req, res)
         );

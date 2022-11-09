@@ -13,19 +13,20 @@
 -   [x] Réorganiser les models
 -   [x] Renommer les models avec xxxRepository
 -   [x] Renommer modelMongo en schema
--   [ ] Ajouter une route liste de aliments par type
--   [ ] Ajouter une route liste de plats par type
--   [ ] Ajouter un champ rôle sur UserRepository
--   [ ] Sécuriser certaines routes par rôle (!== /order)
+-   [X] Revoir le système de routes
+-   [X] Ajouter une route liste de aliments par type
+-   [X] Ajouter une route liste de plats par type
+-   [ ] Ajouter un champ rôle sur User
 -   [ ] Ajouter le champ "transmitted" sur un order
--   [ ] A la suppression d'une commande on libère les plats (si elle est pas "transmitted")
 -   [ ] Ajouter un lien vers une image sur les plats
--   [ ] Revoir la stratéie d'envoi des erreurs API
+-   [ ] Sécuriser certaines routes par rôle (!== /order)
+
+-   [ ] A la suppression d'une commande on libère les plats (si elle est pas "transmitted")
 -   [ ] Doc swagger
+-   [ ] Revoir la stratéie d'envoi des erreurs API
 -   [ ] Reprendre tous les attendus du new doc du prof
 
 -   [ ] La création de la base en dynamique (si non créé)
--   [ ] Revoir le système de routes
 
 Helpers :
 
