@@ -6,7 +6,7 @@ import { OrderSchema } from "./order.schema";
 import { OrderValidator } from "./order.validator";
 import "reflect-metadata";
 import { RepositoryInterface } from "../../interfaces/interface.repository";
-import { DishRepository } from "../dish/dish.repository";
+import { DishRepository, UPDATE_DISH_TYPE } from "../dish/dish.repository";
 import { DishOrderType, DishType } from "../dish/dish.type";
 
 export class OrderRepository
@@ -16,20 +16,30 @@ export class OrderRepository
     schema: Model<OrderType> = model("Order", OrderSchema);
     typeValidator: BaseValidator = new OrderValidator();
 
-    public async decreaseFoodAmount(dishDataList: DishOrderType[]) {
+    public async updateFoodAmount(
+        order: OrderType,
+        updateType: UPDATE_DISH_TYPE
+    ): Promise<boolean> {
+        if (order.transmitted === true) {
+            return false;
+        }
+
         const dishRepository: DishRepository = new DishRepository();
-        dishDataList.forEach(
+        order.dishs.forEach(
             async (dishData: { _id: string; quantity: number }) => {
                 const dishObject: DishType | null = await dishRepository.getOne(
                     dishData._id
                 );
                 if (dishObject !== null) {
-                    dishRepository.decreaseFoodAmount(
+                    dishRepository.updateFoodAmount(
                         dishObject,
-                        dishData.quantity
+                        dishData.quantity,
+                        updateType
                     );
                 }
             }
         );
+
+        return true;
     }
 }

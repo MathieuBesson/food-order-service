@@ -20,7 +20,7 @@
 -   [x] Sécuriser certaines routes par rôle (!== /order)
 -   [x] Ajouter un lien vers une image sur les plats
 -   [X] Ajouter le champ "transmitted" sur un order
--   [ ] A la suppression d'une commande on libère les plats (si elle est pas "transmitted")
+-   [X] A la suppression d'une commande on libère les plats (si elle est pas "transmitted")
 -   [ ] Doc swagger
 -   [ ] Reprendre tous les attendus du new doc du prof
 

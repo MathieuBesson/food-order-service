@@ -14,7 +14,4 @@ export class OrderValidator
     @ValidateNested()
     @Type(() => DishOrderValidator)
     dishs: DishOrderType[] = [];
-
-    @IsBoolean()
-    transmitted: boolean = false;
 }

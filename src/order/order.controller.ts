@@ -2,7 +2,7 @@ import { BaseRepository } from "../base/base.model";
 import { OrderType } from "./order.type";
 import { OrderRepository } from "./order.repository";
 import { Request, Response } from "express";
-import { DishRepository } from "../dish/dish.repository";
+import { DishRepository, UPDATE_DISH_TYPE } from "../dish/dish.repository";
 import { DishType } from "../dish/dish.type";
 import { StatusCodes } from "http-status-codes";
 import { BaseControllerApi } from "../base/base.controller.api";
@@ -15,11 +15,24 @@ export class OrderController extends BaseControllerApi<OrderType> {
             return;
         }
 
+        const order: OrderType | null = await this.model.getOne(req.params.id);
+        if (order === null) {
+            this.sendBadRequestError(
+                ["This order doesn't exist"],
+                "BadRequestExeption",
+                res
+            );
+            return;
+        }
+
+        await new OrderRepository().updateFoodAmount(
+            order,
+            UPDATE_DISH_TYPE.MORE
+        );
+
         res.status(StatusCodes.NO_CONTENT).send(
             await this.model.deleteOne(req.params.id)
         );
-
-        await new OrderRepository().decreaseFoodAmount(req.body.dishs);
     }
 
     public async insertOne(req: Request, res: Response) {
@@ -35,7 +48,10 @@ export class OrderController extends BaseControllerApi<OrderType> {
             await this.model.insertOne(req.body)
         );
 
-        await new OrderRepository().decreaseFoodAmount(req.body.dishs);
+        await new OrderRepository().updateFoodAmount(
+            req.body.dishs,
+            UPDATE_DISH_TYPE.LESS
+        );
     }
 
     protected async isQuantityUnavailable(

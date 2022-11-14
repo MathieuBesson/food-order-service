@@ -9,6 +9,11 @@ import { DishSchema } from "./dish.schema";
 import { DishValidator } from "./dish.validator";
 import { RepositoryInterface } from "../../interfaces/interface.repository";
 
+export enum UPDATE_DISH_TYPE {
+    LESS = "-",
+    MORE = "+",
+}
+
 export class DishRepository
     extends BaseRepository<DishType>
     implements RepositoryInterface<DishType>
@@ -89,7 +94,11 @@ export class DishRepository
         return foodsNeeded;
     }
 
-    public async decreaseFoodAmount(dish: DishType, quantityRequested: number) {
+    public async updateFoodAmount(
+        dish: DishType,
+        quantityRequested: number,
+        updateType: UPDATE_DISH_TYPE
+    ) {
         const foodIds: string[] = [];
         const foodMapQuantity: { [foodId: string]: number } = {};
         const foodRepository: FoodRepository = new FoodRepository();
@@ -107,8 +116,18 @@ export class DishRepository
             if (!food._id) {
                 throw new Error(`The food with the id ${food._id} is unknown`);
             }
-            foods[key].quantity -=
+
+            const foodQuantity: number =
                 foodMapQuantity[food._id] * quantityRequested;
+
+            switch (updateType) {
+                case UPDATE_DISH_TYPE.LESS:
+                    foods[key].quantity -= foodQuantity;
+                    break;
+                case UPDATE_DISH_TYPE.MORE:
+                    foods[key].quantity += foodQuantity;
+                    break;
+            }
 
             await foods[key].updateOne(foods[key]);
         });
