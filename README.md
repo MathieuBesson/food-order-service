@@ -1,4 +1,4 @@
-# FoodRepository OrderRepository service (Backend API)
+# Food order service (Backend API)
 
 A simple FoodRepository OrderRepository service
 
