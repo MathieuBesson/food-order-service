@@ -1,6 +1,6 @@
 # Food order service (Backend API)
 
-A simple FoodRepository OrderRepository service
+A simple food order service
 
 ## Description
 
