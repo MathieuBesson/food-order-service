@@ -11,6 +11,7 @@ export const DishSchema = new Schema<DishType>(
             },
         ],
         type: String,
+        image: String,
         date: { type: Date, default: Date.now },
     },
     { versionKey: false }

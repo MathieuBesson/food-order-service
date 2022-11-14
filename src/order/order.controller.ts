@@ -10,6 +10,18 @@ import { BaseControllerApi } from "../base/base.controller.api";
 export class OrderController extends BaseControllerApi<OrderType> {
     public model: BaseRepository<OrderType> = new OrderRepository();
 
+    public async deleteOne(req: Request, res: Response) {
+        if ((await this.areValidParameters(req, res)) === false) {
+            return;
+        }
+
+        res.status(StatusCodes.NO_CONTENT).send(
+            await this.model.deleteOne(req.params.id)
+        );
+
+        await new OrderRepository().decreaseFoodAmount(req.body.dishs);
+    }
+
     public async insertOne(req: Request, res: Response) {
         if ((await this.areValidParameters(req, res)) === false) {
             return;

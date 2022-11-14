@@ -9,6 +9,7 @@ export const OrderSchema = new Schema<OrderType>(
                 quantity: Number,
             },
         ],
+        transmitted: Boolean,
         date: { type: Date, default: Date.now },
     },
     { versionKey: false }

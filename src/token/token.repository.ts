@@ -14,10 +14,11 @@ export class TokenRepository
     schema: Model<TokenType> = model("Token", TokenSchema);
     typeValidator: BaseValidator = new TokenValidator();
 
-    public async saveOne() {
+    public async saveOne(userId: string) {
         const object = new this.schema({
             token: TokenRepository.generateOne(),
             date: new Date(),
+            userId,
         });
         return await object.save();
     }

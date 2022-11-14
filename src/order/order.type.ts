@@ -5,4 +5,5 @@ export interface OrderType extends BaseType {
         _id: String;
         quantity: Number;
     }[];
+    transmitted: boolean;
 }

@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { IsArray, ValidateNested } from "class-validator";
+import { IsArray, IsBoolean, ValidateNested } from "class-validator";
 import { OrderType } from "./order.type";
 import "reflect-metadata";
 import { BaseValidator } from "../base/base.validator";
@@ -14,4 +14,7 @@ export class OrderValidator
     @ValidateNested()
     @Type(() => DishOrderValidator)
     dishs: DishOrderType[] = [];
+
+    @IsBoolean()
+    transmitted: boolean = false;
 }

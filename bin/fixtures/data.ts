@@ -1,3 +1,5 @@
+import { ROLE } from "../../src/user/user.type";
+
 export const foods = [
     {
         name: "steak",
@@ -76,6 +78,7 @@ export const foods = [
 export const dishs = [
     {
         name: "burger & frites",
+        image: "https://cache.cosmopolitan.fr/data/photo/w1000_ci/52/burger-frites.jpg",
         foods: [
             {
                 quantity: 1,
@@ -99,6 +102,7 @@ export const dishs = [
     },
     {
         name: "salade fromagère",
+        image: "https://s3.eu-central-1.amazonaws.com/media.quitoque.fr/recipe_w1536_h1024/recipes/images/salade-romaine-poulet-roti-pates-rigate-tomate-cerise-comte-sauce-fromagere/salade-romaine-poulet-roti-pates-rigate-tomate-cerise-comte-sauce-fromagere-1.jpg",
         foods: [
             {
                 quantity: 2,
@@ -118,6 +122,7 @@ export const dishs = [
     },
     {
         name: "soupe de légumes",
+        image: "https://assets.afcdn.com/recipe/20130204/35645_w1024h1024c1cx1250cy1875.jpg",
         foods: [
             {
                 quantity: 2,
@@ -137,6 +142,7 @@ export const dishs = [
     },
     {
         name: "salade japonaise",
+        image: "https://img-global.cpcdn.com/recipes/adbca7ee9bb8c162/680x482cq70/salade-de-chou-a-la-japonaise-photo-principale-de-la-recette.jpg",
         foods: [
             {
                 quantity: 2,
@@ -168,6 +174,7 @@ export const orders = [
                 fixtureId: 1,
             },
         ],
+        transmitted: false,
         date: new Date("2022-10-24T10:27:23.906+00:00"),
     },
     {
@@ -181,6 +188,7 @@ export const orders = [
                 fixtureId: 2,
             },
         ],
+        transmitted: false,
         date: new Date("2022-10-24T10:27:23.906+00:00"),
     },
 ];
@@ -189,6 +197,7 @@ export const users = [
     {
         login: "admin",
         password: "admin",
+        roles: [ROLE.ADMIN],
         date: new Date("2022-10-24T10:27:23.906+00:00"),
     },
 ];

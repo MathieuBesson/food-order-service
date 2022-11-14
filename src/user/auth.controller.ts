@@ -1,9 +1,10 @@
+import { plainToClass, plainToInstance } from "class-transformer";
 import { validate } from "class-validator";
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { TokenRepository } from "../token/token.repository";
 import { UserRepository } from "./user.repository";
-import { UserType } from "./user.type";
+import { ROLE, UserType } from "./user.type";
 import { UserValidator } from "./user.validator";
 
 export class AuthenticationController {
@@ -33,7 +34,7 @@ export class AuthenticationController {
         res.status(StatusCodes.CREATED).send(
             await this.userRepository.insertOne({
                 ...req.body,
-                tokenList: [],
+                roles: ROLE.CLIENT,
                 password: UserRepository.crypt(req.body.password),
             })
         );
@@ -63,13 +64,16 @@ export class AuthenticationController {
             return;
         }
 
-        // Send TokenRepository if credentials match
-        const tokenObject = await this.tokenRepository.saveOne();
-        currentUser.tokenList.push(tokenObject._id.toString());
-        // Add TokenRepository in the list of User's
-        await this.userRepository.updateOne(currentUser);
-        res.status(StatusCodes.OK).send({ token: tokenObject.token });
-        return;
+        if (currentUser?._id) {
+            // Send TokenRepository if credentials match
+            const tokenObject = await this.tokenRepository.saveOne(
+                currentUser?._id
+            );
+            // Add TokenRepository in the list of User's
+            await this.userRepository.updateOne(currentUser);
+            res.status(StatusCodes.OK).send({ token: tokenObject.token });
+            return;
+        }
     }
 
     /**
@@ -83,12 +87,11 @@ export class AuthenticationController {
         res: Response
     ): Promise<Boolean> {
         // data from the TokenRepository that is verified
-        const noteNew = new UserValidator();
-        noteNew.password = req.body.password;
-        noteNew.login = req.body.login;
+
+        const user: UserValidator = plainToInstance(UserValidator, req.body);
 
         // verify input parameters
-        const errors = await validate(noteNew);
+        const errors = await validate(user);
         if (errors.length) {
             res.status(StatusCodes.BAD_REQUEST).send(errors);
             return false;

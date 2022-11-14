@@ -72,31 +72,35 @@ async function insertFixture() {
     // Users
     const userRepository: UserRepository = new UserRepository();
     await userRepository.schema.deleteMany({});
-    const UserListe: UserType[] = [];
+    const userList: UserType[] = [];
 
     // Tokens
     const tokenRepository: TokenRepository = new TokenRepository();
     await tokenRepository.schema.deleteMany({});
     let tokenList: TokenType[] = [];
 
-    users.forEach(() => {
-        // Generate tokens
-        tokenList.push({
-            token: TokenRepository.generateOne(),
-            date: new Date(),
-        });
-    });
-    const tokensSauvegarde = await tokenRepository.schema.insertMany(tokenList);
-
-    users.forEach((currentUser, key) => {
+    users.forEach((currentUser) => {
         // Generate Users
-        UserListe.push({
+        userList.push({
             ...currentUser,
-            tokenList: [tokensSauvegarde[key]._id.toString()],
             password: UserRepository.crypt(currentUser.password),
         });
     });
-    await userRepository.schema.insertMany(UserListe);
+
+    const usersSaved = await userRepository.schema.insertMany(userList);
+
+    usersSaved.forEach((currentUser) => {
+        // Generate tokens
+        if (currentUser._id !== undefined) {
+            tokenList.push({
+                token: TokenRepository.generateOne(),
+                date: new Date(),
+                userId: currentUser._id,
+            });
+        }
+    });
+
+    const tokensSaved = await tokenRepository.schema.insertMany(tokenList);
 
     console.log("Fixtures jouées !");
     process.exit(1);

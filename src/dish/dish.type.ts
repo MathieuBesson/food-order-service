@@ -8,6 +8,7 @@ export interface DishType extends BaseType {
     }[];
     type: string;
     disponibility: number;
+    image: string;
 }
 
 export interface DishOrderType {

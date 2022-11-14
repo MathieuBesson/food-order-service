@@ -22,17 +22,26 @@ export class DishValidator
     @IsString()
     @MinLength(3)
     @MaxLength(100)
+    @IsNotEmpty()
     name: string = "";
 
     @IsArray()
     @ValidateNested()
     @Type(() => FoodDishValidator)
+    @IsNotEmpty()
     foods: FoodDishType[] = [];
 
     @IsString()
     @MinLength(8)
     @MaxLength(200)
+    @IsNotEmpty()
     type: string = "";
+
+    @IsString()
+    @MinLength(5)
+    @MaxLength(500)
+    @IsNotEmpty()
+    image: string = "";
 }
 
 export class DishOrderValidator
