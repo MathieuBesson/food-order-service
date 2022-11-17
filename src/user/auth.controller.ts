@@ -23,21 +23,27 @@ export class AuthenticationController {
         }
 
         // Check login is not use
-        if (this.userRepository.search({ login: req.body.login }) !== null) {
+        if (
+            (await this.userRepository.search({ login: req.body.login })) !==
+            null
+        ) {
             res.status(StatusCodes.BAD_REQUEST).send({
                 error: "Your username is invalid",
             });
             return;
         }
 
+        const user = await this.userRepository.insertOne({
+            ...req.body,
+            roles: ROLE.CLIENT,
+            password: UserRepository.crypt(req.body.password),
+        });
+
         // User's creation
-        res.status(StatusCodes.CREATED).send(
-            await this.userRepository.insertOne({
-                ...req.body,
-                roles: ROLE.CLIENT,
-                password: UserRepository.crypt(req.body.password),
-            })
-        );
+        res.status(StatusCodes.CREATED).send({
+            _id: user._id,
+            login: user.login,
+        });
     }
 
     /**

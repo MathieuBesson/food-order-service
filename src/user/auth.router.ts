@@ -4,7 +4,7 @@ import { RouteConfig } from "../../utils/router";
 import { AuthenticationController } from "./auth.controller";
 
 export const AuthRoutes: RouteConfig = {
-    ressourceName: "foods",
+    ressourceName: "auth",
     routes: [
         {
             path: "/register",

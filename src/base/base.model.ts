@@ -35,7 +35,7 @@ export abstract class BaseRepository<Type extends BaseType>
     }
 
     public async deleteOne(id: string) {
-        return await this.schema.deleteOne({ name: id });
+        return await this.schema.deleteOne({ _id: id });
     }
 
     public async getAllOrderByField(field: string) {

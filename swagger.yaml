@@ -1,0 +1,605 @@
+openapi: 3.0.3
+info:
+    title: Food order service API
+    description: API to manage orders of food service
+    version: 1.0.0
+host: localhost:3000
+basePath: /docs
+servers: [{ url: "/" }]
+schemes:
+    - http
+paths:
+    /auth/register:
+        post:
+            summary: Register to API
+            description: Register to API
+            tags:
+                - authentication
+            requestBody:
+                description: Register informations
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/body/auth/register"
+            responses:
+                "200":
+                    description: Register successful
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/response/auth/register"
+    /auth/token:
+        post:
+            summary: Get API token
+            description: Get API token
+            tags:
+                - authentication
+            requestBody:
+                description: Register informations
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/body/auth/register"
+            responses:
+                "200":
+                    description: Login successful
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/response/auth/token"
+    /foods:
+        get:
+            summary: Get all foods
+            description: Get all foods
+            tags:
+                - foods
+            responses:
+                "200":
+                    description: Successful request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/response/foods/getFoods"
+        post:
+            summary: Post one food
+            description: Post one food
+            security:
+                - bearerAuth: ["ADMIN"]
+            tags:
+                - foods
+            requestBody:
+                description: Foods informations
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/body/foods/postOneFood"
+            responses:
+                "200":
+                    description: Successful request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/response/foods/postOneFood"
+        put:
+            summary: Update one food
+            description: Update one food
+            security:
+                - bearerAuth: ["ADMIN"]
+            tags:
+                - foods
+            requestBody:
+                description: Foods informations
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/body/foods/putOneFood"
+            responses:
+                "200":
+                    description: Successful request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/response/foods/getOneFood"
+    /foods/type:
+        get:
+            summary: Get all foods by types
+            description: Get all foods by types
+            tags:
+                - foods
+            responses:
+                "200":
+                    description: Successful request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/response/foods/getFoodsByTypes"
+    /foods/{id}:
+        get:
+            summary: Get one food
+            description: Get one food
+            tags:
+                - foods
+            parameters:
+                - name: id
+                  in: path
+                  description: id of food to return
+                  required: true
+                  schema:
+                      $ref: "#/components/base/_id"
+            responses:
+                "200":
+                    description: Successful request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/response/foods/getOneFood"
+        delete:
+            summary: Delete one food
+            description: Delete one food
+            security:
+                - bearerAuth: ["ADMIN"]
+            tags:
+                - foods
+            parameters:
+                - name: id
+                  in: path
+                  description: id of food to return
+                  required: true
+                  schema:
+                      $ref: "#/components/base/_id"
+            responses:
+                "200":
+                    description: Successful request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/base/deleteCount"
+    /dishs:
+        get:
+            summary: Get all dishs
+            description: Get all dishs
+            tags:
+                - dishs
+            responses:
+                "200":
+                    description: Successful request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/response/dishs/getDishs"
+        post:
+            summary: Post one dish
+            description: Post one dish
+            security:
+                - bearerAuth: ["ADMIN"]
+            tags:
+                - dishs
+            requestBody:
+                description: Dishs informations
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/body/dishs/postOneDish"
+            responses:
+                "200":
+                    description: Successful request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/response/dishs/postOneDish"
+        put:
+            summary: Update one dish
+            description: Update one dish
+            security:
+                - bearerAuth: ["ADMIN"]
+            tags:
+                - dishs
+            requestBody:
+                description: Dishs informations
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/body/dishs/putOneDish"
+            responses:
+                "200":
+                    description: Successful request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/response/dishs/getOneDish"
+    /dishs/type:
+        get:
+            summary: Get all dishs by types
+            description: Get all dishs by types
+            tags:
+                - dishs
+            responses:
+                "200":
+                    description: Successful request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/response/dishs/getDishsByTypes"
+    /dishs/{id}:
+        get:
+            summary: Get one dish
+            description: Get one dish
+            tags:
+                - dishs
+            parameters:
+                - name: id
+                  in: path
+                  description: id of dish to return
+                  required: true
+                  schema:
+                      $ref: "#/components/base/_id"
+            responses:
+                "200":
+                    description: Successful request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/response/dishs/getOneDish"
+        delete:
+            summary: Delete one dish
+            description: Delete one dish
+            security:
+                - bearerAuth: ["ADMIN"]
+            tags:
+                - dishs
+            parameters:
+                - name: id
+                  in: path
+                  description: id of dish to return
+                  required: true
+                  schema:
+                      $ref: "#/components/base/_id"
+            responses:
+                "200":
+                    description: Successful request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/base/deleteCount"
+    /orders:
+        get:
+            summary: Get all orders
+            description: Get all orders
+            security:
+                - bearerAuth: ["ADMIN"]
+            tags:
+                - orders
+            responses:
+                "200":
+                    description: Successful request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/response/orders/getOrders"
+        post:
+            summary: Post one order
+            description: Post one order
+            security:
+                - bearerAuth: ["CLIENT"]
+            tags:
+                - orders
+            requestBody:
+                description: Orders informations
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/body/orders/postOneOrder"
+            responses:
+                "200":
+                    description: Successful request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/response/orders/postOneOrder"
+    /orders/{id}:
+        get:
+            summary: Get one order
+            description: Get one order
+            security:
+                - bearerAuth: ["ADMIN"]
+            tags:
+                - orders
+            parameters:
+                - name: id
+                  in: path
+                  description: id of order to return
+                  required: true
+                  schema:
+                      $ref: "#/components/base/_id"
+            responses:
+                "200":
+                    description: Successful request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/response/orders/getOneOrder"
+        delete:
+            summary: Delete one order
+            description: Delete one food
+            security:
+                - bearerAuth: ["CLIENT"]
+            tags:
+                - orders
+            parameters:
+                - name: id
+                  in: path
+                  description: id of order to return
+                  required: true
+                  schema:
+                      $ref: "#/components/base/_id"
+            responses:
+                "200":
+                    description: Successful request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/base/deleteCount"
+components:
+    securitySchemes:
+        bearerAuth:
+            type: http
+            scheme: bearer
+    base:
+        _id:
+            type: string
+            example: 637290e9b3d7cc16406bb082
+        date:
+            type: string
+            format: date-time
+            example: "2022-11-09T08:48:01.453+00:00"
+        deleteCount:
+            type: object
+            properties:
+                deleteCount:
+                    type: number
+                    example: 1
+    body:
+        auth:
+            register:
+                type: object
+                properties:
+                    login:
+                        $ref: "#/components/schemas/User/properties/login"
+                    password:
+                        $ref: "#/components/schemas/User/properties/login"
+        foods:
+            postOneFood:
+                type: object
+                properties:
+                    name:
+                        $ref: "#/components/schemas/Food/properties/name"
+                    type:
+                        $ref: "#/components/schemas/Food/properties/type"
+                    quantity:
+                        $ref: "#/components/schemas/Food/properties/quantity"
+            putOneFood:
+                type: object
+                properties:
+                    _id:
+                        $ref: "#/components/schemas/Food/properties/_id"
+                    name:
+                        $ref: "#/components/schemas/Food/properties/name"
+                    type:
+                        $ref: "#/components/schemas/Food/properties/type"
+                    quantity:
+                        $ref: "#/components/schemas/Food/properties/quantity"
+        dishs:
+            postOneDish:
+                type: object
+                properties:
+                    name:
+                        $ref: "#/components/schemas/Dish/properties/name"
+                    foods:
+                        $ref: "#/components/schemas/Dish/properties/foods"
+                    type:
+                        $ref: "#/components/schemas/Dish/properties/type"
+                    disponibility:
+                        $ref: "#/components/schemas/Dish/properties/disponibility"
+            putOneDish:
+                type: object
+                properties:
+                    _id:
+                        $ref: "#/components/schemas/Dish/properties/_id"
+                    name:
+                        $ref: "#/components/schemas/Dish/properties/name"
+                    foods:
+                        $ref: "#/components/schemas/Dish/properties/foods"
+                    type:
+                        $ref: "#/components/schemas/Dish/properties/type"
+                    disponibility:
+                        $ref: "#/components/schemas/Dish/properties/disponibility"
+        orders:
+            postOneOrder:
+                type: object
+                properties:
+                    dishs:
+                        $ref: "#/components/schemas/Order/properties/dishs"
+                    transmitted:
+                        $ref: "#/components/schemas/Order/properties/transmitted"
+    response:
+        auth:
+            register:
+                type: object
+                properties:
+                    _id:
+                        $ref: "#/components/base/_id"
+                    login:
+                        $ref: "#/components/schemas/User/properties/login"
+            token:
+                type: object
+                properties:
+                    token:
+                        $ref: "#/components/schemas/Token/properties/token"
+        foods:
+            getFoods:
+                type: array
+                items:
+                    $ref: "#/components/schemas/Food"
+            getFoodsByTypes:
+                type: array
+                items:
+                    properties:
+                        type:
+                            $ref: "#/components/schemas/Food/properties/type"
+                        items:
+                            type: array
+                            items:
+                                $ref: "#/components/schemas/Food"
+            getOneFood:
+                type: object
+                $ref: "#/components/schemas/Food"
+            postOneFood:
+                type: object
+                $ref: "#/components/schemas/Food"
+        dishs:
+            getDishs:
+                type: array
+                items:
+                    $ref: "#/components/schemas/Dish"
+            getOneDish:
+                type: object
+                $ref: "#/components/schemas/Dish"
+            postOneDish:
+                type: object
+                $ref: "#/components/schemas/Dish"
+            getDishsByTypes:
+                type: array
+                items:
+                    properties:
+                        type:
+                            $ref: "#/components/schemas/Dish/properties/type"
+                        items:
+                            type: array
+                            items:
+                                $ref: "#/components/schemas/Dish"
+        orders:
+            getOrders:
+                type: array
+                items:
+                    $ref: "#/components/schemas/Order"
+            getOneOrder:
+                type: object
+                $ref: "#/components/schemas/Order"
+            postOneOrder:
+                type: object
+                $ref: "#/components/schemas/Order"
+    schemas:
+        User:
+            properties:
+                login:
+                    type: string
+                    format: email
+                    minLength: 5
+                    example: "admin@admin.bzh"
+                password:
+                    type: string
+                    format: password
+                    minLength: 8
+                    example: "azerty1234"
+                roles:
+                    type: array
+                    items:
+                        enum:
+                            - ADMIN
+                            - CLIENT
+                    example: "ADMIN"
+                _id:
+                    $ref: "#/components/base/_id"
+                date:
+                    $ref: "#/components/base/date"
+        Food:
+            properties:
+                name:
+                    type: string
+                    minLength: 2
+                    maxLength: 200
+                    example: "tomate"
+                type:
+                    type: string
+                    minLength: 2
+                    maxLength: 200
+                    example: "fruit"
+                quantity:
+                    type: number
+                    min: 1
+                    example: 1
+                _id:
+                    $ref: "#/components/base/_id"
+                date:
+                    $ref: "#/components/base/date"
+        Dish:
+            properties:
+                name:
+                    type: string
+                    minLength: 2
+                    maxLength: 200
+                    example: "Tarte à l'abricot"
+                foods:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            _id:
+                                $ref: "#/components/base/_id"
+                            quantity:
+                                type: number
+                                min: 0
+                                example: 5
+                type:
+                    type: string
+                    minLength: 2
+                    maxLength: 200
+                    example: "dessert"
+                disponibility:
+                    type: number
+                    min: 0
+                    example: 15
+                _id:
+                    $ref: "#/components/base/_id"
+                date:
+                    $ref: "#/components/base/date"
+        Order:
+            properties:
+                dishs:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            _id:
+                                $ref: "#/components/base/_id"
+                            quantity:
+                                type: number
+                                min: 0
+                                example: 5
+                transmitted:
+                    type: boolean
+                    example: true
+                _id:
+                    $ref: "#/components/base/_id"
+                date:
+                    $ref: "#/components/base/date"
+        Token:
+            properties:
+                token:
+                    type: string
+                    minLength: 10
+                    maxLength: 500
+                    example: "wKOBwnGN7WCxxqroWPpKq30eQzFKLNl4hw0URXjJoNIbxS0SFEq0I6G1mPoy3AYLEUKdeKwRezYdx7IphJopEOdJkIzAzX4wf3XgYGHOi6oQAte6ZLshuVCB76JTp11uGNlFnwwjCeneUyNWy325kSYNtAxxEs0FAk4uzq9FYahnLvXpuoxNGJqWBHTvoCuQIyn4sylP3jgE1DCVc36QxBnbHbj2PTHhbYrsG1Frf99I724kDdcSeF2sHT"
+                userId:
+                    $ref: "#/components/base/_id"
+                _id:
+                    $ref: "#/components/base/_id"
+                date:
+                    $ref: "#/components/base/date"

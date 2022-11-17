@@ -7,6 +7,8 @@ import { FoodRoutes } from "./src/food/food.router";
 import { OrderRoutes } from "./src/order/order.router";
 import { AuthRoutes } from "./src/user/auth.router";
 import { Router } from "./utils/router";
+import swaggerUi from "swagger-ui-express";
+import YAML from "yamljs";
 
 const app = express();
 
@@ -18,7 +20,11 @@ performances(app);
 routes.map((route) => Router.addRoutes(route, app));
 
 // Serveur listening
-app.listen(3000, () => "Serveur listening on port :3000");
+app.listen(process.env.SERVER_PORT, () =>
+    console.log(`Serveur listening on port :${process.env.SERVER_PORT}`)
+);
 
 // BDD connexion
 connexionBdd();
+
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(YAML.load("./swagger.yaml")));

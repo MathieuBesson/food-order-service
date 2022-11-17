@@ -17,11 +17,11 @@ import { FoodDishType } from "../food/food.type";
 
 export class DishValidator
     extends BaseValidator
-    implements Pick<DishType, "name" | "type">
+    implements Pick<DishType, "name" | "type" | "foods" | "image">
 {
     @IsString()
-    @MinLength(3)
-    @MaxLength(100)
+    @MinLength(2)
+    @MaxLength(200)
     @IsNotEmpty()
     name: string = "";
 

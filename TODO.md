@@ -19,16 +19,18 @@
 -   [x] Ajouter un champ rôle sur User
 -   [x] Sécuriser certaines routes par rôle (!== /order)
 -   [x] Ajouter un lien vers une image sur les plats
--   [X] Ajouter le champ "transmitted" sur un order
--   [X] A la suppression d'une commande on libère les plats (si elle est pas "transmitted")
+-   [x] Ajouter le champ "transmitted" sur un order
+-   [x] A la suppression d'une commande on libère les plats (si elle est pas "transmitted")
 -   [ ] Doc swagger
 -   [ ] Reprendre tous les attendus du new doc du prof
+-   [ ] Revooir les routes de tri dans dishs et foods pour coller à swagger
+-   [ ] Pas de donnée => retour objet vide
+-   [ ] Lié un order à un user ???
 
 -   [ ] Créer les deux tables (dishType && foodType)
 
 -   [ ] Revoir la stratégie d'envoi des erreurs API
 -   [ ] La création de la base en dynamique (si non créé)
-
 
 Helpers :
 

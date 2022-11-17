@@ -51,9 +51,10 @@ export class BaseControllerApi<Type extends BaseType>
     }
 
     public async deleteOne(req: Request, res: Response) {
-        res.status(StatusCodes.NO_CONTENT).send(
-            await this.model.deleteOne(req.params.id)
-        );
+        const result = await this.model.deleteOne(req.params.id);
+        res.status(StatusCodes.ACCEPTED).send({
+            deleteCount: result.deletedCount,
+        });
     }
 
     protected async areValidParameters(
