@@ -21,16 +21,15 @@
 -   [x] Ajouter un lien vers une image sur les plats
 -   [x] Ajouter le champ "transmitted" sur un order
 -   [x] A la suppression d'une commande on libère les plats (si elle est pas "transmitted")
--   [ ] Doc swagger
--   [ ] Reprendre tous les attendus du new doc du prof
--   [ ] Revooir les routes de tri dans dishs et foods pour coller à swagger
--   [ ] Pas de donnée => retour objet vide
+-   [x] Doc swagger
+-   [X] Revoir les routes de tri dans dishs et foods pour coller à swagger
 -   [ ] Lié un order à un user ???
+-   [ ] Pas de donnée => retour objet vide
+-   [ ] Reprendre tous les attendus du new doc du prof
 
 -   [ ] Créer les deux tables (dishType && foodType)
-
 -   [ ] Revoir la stratégie d'envoi des erreurs API
--   [ ] La création de la base en dynamique (si non créé)
+-   [ ] La création de la base en dynamique (si non on créé)
 
 Helpers :
 

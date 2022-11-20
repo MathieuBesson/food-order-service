@@ -44,17 +44,26 @@ export abstract class BaseRepository<Type extends BaseType>
             .sort({ [field]: 1 })
             .lean();
 
-        const objectOrdered: {
-            [key: string]: Type[];
-        } = {};
+        const objectsOrdered: any[] = [];
 
-        objectsRequested.forEach((food) => {
-            if (objectOrdered[food[field]] === undefined) {
-                objectOrdered[food[field]] = [];
+        objectsRequested.forEach((objectRequested) => {
+            let idOfType = null;
+            objectsOrdered.forEach((objectOrdered, key) => {
+                if (objectRequested[field] === objectOrdered[field]) {
+                    idOfType = key;
+                }
+            });
+
+            if (idOfType !== null) {
+                objectsOrdered[idOfType].items.push(objectRequested);
+            } else {
+                objectsOrdered.push({
+                    [field]: objectRequested[field],
+                    items: [objectRequested],
+                });
             }
-            objectOrdered[food[field]].push(food);
         });
 
-        return objectOrdered;
+        return objectsOrdered;
     }
 }

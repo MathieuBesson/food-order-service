@@ -197,7 +197,7 @@ export const users = [
     {
         login: "admin",
         password: "admin",
-        roles: [ROLE.ADMIN],
+        roles: [ROLE.ADMIN, ROLE.CLIENT],
         date: new Date("2022-10-24T10:27:23.906+00:00"),
     },
 ];
