@@ -10,6 +10,7 @@ export const OrderSchema = new Schema<OrderType>(
             },
         ],
         transmitted: Boolean,
+        userId: String,
         date: { type: Date, default: Date.now },
     },
     { versionKey: false }

@@ -426,8 +426,6 @@ components:
                 properties:
                     dishs:
                         $ref: "#/components/schemas/Order/properties/dishs"
-                    transmitted:
-                        $ref: "#/components/schemas/Order/properties/transmitted"
     response:
         auth:
             register:
@@ -586,6 +584,8 @@ components:
                 transmitted:
                     type: boolean
                     example: true
+                userId:
+                    $ref: "#/components/base/_id"
                 _id:
                     $ref: "#/components/base/_id"
                 date:

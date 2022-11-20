@@ -6,6 +6,10 @@ import { DishRepository, UPDATE_DISH_TYPE } from "../dish/dish.repository";
 import { DishType } from "../dish/dish.type";
 import { StatusCodes } from "http-status-codes";
 import { BaseControllerApi } from "../base/base.controller.api";
+import { TokenRepository } from "../token/token.repository";
+import { UserRepository } from "../user/user.repository";
+import { TokenType } from "../token/token.type";
+import { UserType } from "../user/user.type";
 
 export class OrderController extends BaseControllerApi<OrderType> {
     public model: BaseRepository<OrderType> = new OrderRepository();
@@ -44,8 +48,21 @@ export class OrderController extends BaseControllerApi<OrderType> {
             return;
         }
 
+        if (!req.headers["authorization"]) {
+            return;
+        }
+
+        const clientToken = req.headers["authorization"].split(" ")[1];
+        const tokenRepository: TokenRepository = new TokenRepository();
+        const token: TokenType | null = await tokenRepository.search({
+            token: clientToken,
+        });
+
         res.status(StatusCodes.CREATED).send(
-            await this.model.insertOne(req.body)
+            await this.model.insertOne({
+                ...req.body,
+                userId: token?.userId,
+            })
         );
 
         await new OrderRepository().updateFoodAmount(

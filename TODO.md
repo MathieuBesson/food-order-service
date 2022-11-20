@@ -22,10 +22,10 @@
 -   [x] Ajouter le champ "transmitted" sur un order
 -   [x] A la suppression d'une commande on libère les plats (si elle est pas "transmitted")
 -   [x] Doc swagger
--   [X] Revoir les routes de tri dans dishs et foods pour coller à swagger
--   [ ] Lié un order à un user ???
+-   [x] Revoir les routes de tri dans dishs et foods pour coller à swagger
+-   [x] Lié un order à un user ???
+-   [X] Reprendre tous les attendus du new doc du prof
 -   [ ] Pas de donnée => retour objet vide
--   [ ] Reprendre tous les attendus du new doc du prof
 
 -   [ ] Créer les deux tables (dishType && foodType)
 -   [ ] Revoir la stratégie d'envoi des erreurs API
@@ -39,7 +39,7 @@ https://github.com/typestack/class-validator/issues/198#issuecomment-406237526
 
 Client (PUBLIC):
 
--   Afficher tous les menus (+ dispo / pas dispo)
+-   Afficher tous les plats (+ dispo / pas dispo) / type
 -   Créer un compte pour commander
 
 Client Auth => Authentifié Client :
@@ -50,4 +50,4 @@ Client Auth => Authentifié Client :
 
 BO => Authentifié ADMIN :
 
--   Visualisation, Ajout, MAJ, suppression plat / produit
+-   Visualisation, Ajout, MAJ, suppression plat / aliment
