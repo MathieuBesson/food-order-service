@@ -18,4 +18,15 @@ export class DishController extends BaseControllerApi<DishType> {
             await this.model.getAllWithDisponibilities()
         );
     }
+
+    public async getAllOrderByField(
+        req: Request,
+        res: Response,
+        field: string
+    ) {
+        const all = await this.model.getAllWithDisponibilities();
+        res.status(StatusCodes.CREATED).send(
+            await this.model.getAllOrderByField(field, all)
+        );
+    }
 }

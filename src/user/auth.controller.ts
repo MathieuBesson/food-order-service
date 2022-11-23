@@ -77,7 +77,12 @@ export class AuthenticationController {
             );
             // Add TokenRepository in the list of User's
             await this.userRepository.updateOne(currentUser);
-            res.status(StatusCodes.OK).send({ token: tokenObject.token });
+            res.status(StatusCodes.OK).send({
+                _id: currentUser._id,
+                token: tokenObject.token,
+                login: currentUser.login,
+                roles: currentUser.roles,
+            });
             return;
         }
     }

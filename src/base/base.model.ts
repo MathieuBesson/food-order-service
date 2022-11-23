@@ -31,6 +31,7 @@ export abstract class BaseRepository<Type extends BaseType>
 
     public async updateOne(body: Type) {
         const object = await this.schema.findOne({ _id: body._id });
+        console.log(object);
         return await object?.updateOne(body);
     }
 
@@ -38,11 +39,14 @@ export abstract class BaseRepository<Type extends BaseType>
         return await this.schema.deleteOne({ _id: id });
     }
 
-    public async getAllOrderByField(field: string) {
-        const objectsRequested: any[] = await this.schema
-            .find()
-            .sort({ [field]: 1 })
-            .lean();
+    public async getAllOrderByField(field: string, data: any[]) {
+        let objectsRequested: any[] = data;
+        if (data === null) {
+            objectsRequested = await this.schema
+                .find()
+                .sort({ [field]: 1 })
+                .lean();
+        }
 
         const objectsOrdered: any[] = [];
 

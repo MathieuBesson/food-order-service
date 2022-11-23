@@ -8,7 +8,7 @@ export class UserValidator
     implements Pick<UserType, "login" | "password">
 {
     @IsString()
-    @MinLength(5)
+    @MinLength(2)
     @MaxLength(100)
     @IsNotEmpty()
     login: string = "";

@@ -23,13 +23,6 @@ npm i
 ```
 
 -   Create copy of **.env.example** ans replace by **.env** file and replace with your environnements parameters
-
--   Launch dev server
-
-```shell
-npm run serve
-```
-
 -   Create database in with the same name like **.env** file
 -   Execute fixtures in database
 
@@ -37,9 +30,13 @@ npm run serve
 npm run fixtures
 ```
 
--   API is accessible on [localhost:3000/](http://localhost:3000/)
+-   Launch dev server
 
----
+```shell
+npm run serve
+```
+
+-   API is accessible on [localhost:3000/docs](http://localhost:3000/docs)
 
 Launch compilation Typescript to Javascript
 
@@ -48,6 +45,13 @@ npm run dev
 ```
 
 ---
+
+## Infos
+
+The admin credentials are :
+
+**login**: "admin"
+**password**: "azerty1234"
 
 ## Authors
 

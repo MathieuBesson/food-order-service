@@ -25,7 +25,6 @@
 -   [x] Revoir les routes de tri dans dishs et foods pour coller à swagger
 -   [x] Lié un order à un user ???
 -   [X] Reprendre tous les attendus du new doc du prof
--   [ ] Pas de donnée => retour objet vide
 
 -   [ ] Créer les deux tables (dishType && foodType)
 -   [ ] Revoir la stratégie d'envoi des erreurs API
@@ -35,19 +34,3 @@ Helpers :
 
 https://github.com/typestack/class-validator/issues/198#issuecomment-406237526
 
-## Front-end
-
-Client (PUBLIC):
-
--   Afficher tous les plats (+ dispo / pas dispo) / type
--   Créer un compte pour commander
-
-Client Auth => Authentifié Client :
-
--   Commander des plats (Clique sur le + = ajout au panier)
--   Clique sur le panier (Liste des plats du panier + cganger la quantité)
--   Simulation d'un écran de paiement + redirection vers la liste des plats
-
-BO => Authentifié ADMIN :
-
--   Visualisation, Ajout, MAJ, suppression plat / aliment

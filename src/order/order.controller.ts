@@ -66,7 +66,7 @@ export class OrderController extends BaseControllerApi<OrderType> {
         );
 
         await new OrderRepository().updateFoodAmount(
-            req.body.dishs,
+            req.body,
             UPDATE_DISH_TYPE.LESS
         );
     }

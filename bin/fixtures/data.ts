@@ -52,7 +52,7 @@ export const foods = [
     {
         name: "mozza",
         type: "fromage",
-        quantity: 20,
+        quantity: 0,
         date: new Date("2022-10-24T10:27:23.906+00:00"),
     },
     {
@@ -78,7 +78,7 @@ export const foods = [
 export const dishs = [
     {
         name: "burger & frites",
-        image: "https://cache.cosmopolitan.fr/data/photo/w1000_ci/52/burger-frites.jpg",
+        image: "https://www.aucoindemarue.fr/wp-content/uploads/2020/06/Au-Coin-De-Ma-Rue-courses-en-ligne-Burger-frites-1200x900.jpg",
         foods: [
             {
                 quantity: 1,
@@ -196,7 +196,7 @@ export const orders = [
 export const users = [
     {
         login: "admin",
-        password: "admin",
+        password: "azerty1234",
         roles: [ROLE.ADMIN, ROLE.CLIENT],
         date: new Date("2022-10-24T10:27:23.906+00:00"),
     },

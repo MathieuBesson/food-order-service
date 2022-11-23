@@ -27,6 +27,7 @@ export class OrderRepository
         const dishRepository: DishRepository = new DishRepository();
         order.dishs.forEach(
             async (dishData: { _id: string; quantity: number }) => {
+                console.log("oooooooooooooooooook");
                 const dishObject: DishType | null = await dishRepository.getOne(
                     dishData._id
                 );

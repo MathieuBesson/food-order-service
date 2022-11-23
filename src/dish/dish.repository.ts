@@ -18,9 +18,6 @@ export class DishRepository
     extends BaseRepository<DishType>
     implements RepositoryInterface<DishType>
 {
-    getAllOrderByType(): any {
-        throw new Error("Method not implemented.");
-    }
     schema: Model<DishType> = model("Dish", DishSchema);
     typeValidator: BaseValidator = new DishValidator();
 
@@ -53,6 +50,7 @@ export class DishRepository
         dish: DishType
     ): Promise<DishType> {
         const foodsNeeded = await this.getAllFoodsNeeded(foodsData);
+
         console.log(foodsNeeded);
 
         return {

@@ -373,7 +373,7 @@ components:
                     login:
                         $ref: "#/components/schemas/User/properties/login"
                     password:
-                        $ref: "#/components/schemas/User/properties/login"
+                        $ref: "#/components/schemas/User/properties/password"
         foods:
             postOneFood:
                 type: object
@@ -418,14 +418,16 @@ components:
                         $ref: "#/components/schemas/Dish/properties/foods"
                     type:
                         $ref: "#/components/schemas/Dish/properties/type"
-                    disponibility:
-                        $ref: "#/components/schemas/Dish/properties/disponibility"
+                    image:
+                        $ref: "#/components/schemas/Dish/properties/image"
         orders:
             postOneOrder:
                 type: object
                 properties:
                     dishs:
                         $ref: "#/components/schemas/Order/properties/dishs"
+                    userId:
+                        $ref: "#/components/schemas/Order/properties/userId"
     response:
         auth:
             register:
@@ -440,6 +442,12 @@ components:
                 properties:
                     token:
                         $ref: "#/components/schemas/Token/properties/token"
+                    login:
+                        $ref: "#/components/schemas/User/properties/login"
+                    roles:
+                        $ref: "#/components/schemas/User/properties/roles"
+                    _id:
+                        $ref: "#/components/schemas/User/properties/_id"
         foods:
             getFoods:
                 type: array
@@ -500,7 +508,7 @@ components:
                     type: string
                     format: email
                     minLength: 5
-                    example: "admin@admin.bzh"
+                    example: "admin"
                 password:
                     type: string
                     format: password

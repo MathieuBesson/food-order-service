@@ -27,7 +27,7 @@ export class BaseControllerApi<Type extends BaseType>
         field: string
     ) {
         res.status(StatusCodes.CREATED).send(
-            await this.model.getAllOrderByField(field)
+            await this.model.getAllOrderByField(field, [])
         );
     }
 
@@ -44,6 +44,7 @@ export class BaseControllerApi<Type extends BaseType>
         if ((await this.areValidParameters(req, res)) === false) {
             return;
         }
+        console.log(await this.model.updateOne(req.body));
 
         res.status(StatusCodes.CREATED).send(
             await this.model.updateOne(req.body)
