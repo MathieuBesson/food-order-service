@@ -10,7 +10,7 @@ This project is an application composed of a backend API in Node.js (TypeScript)
 
 ### Prerequisites
 
-![Node.js](https://img.shields.io/badge/node.js-v14-339933?logo=nodedotjs&logoColor=white&labelColor=339933&color=white)  
+![Node.js](https://img.shields.io/badge/node.js-v14-339933?logo=nodedotjs&logoColor=white&labelColor=339933&color=white)
 ![MongoDB](https://img.shields.io/badge/mongodb-v4.4.6-47A248?logo=mongodb&logoColor=white&labelColor=47A248&color=white)
 ![npm](https://img.shields.io/badge/npm-v10-CB3837?logo=npm&logoColor=white&labelColor=CB3837&color=white)
 
