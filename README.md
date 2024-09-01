@@ -16,27 +16,31 @@ This project is an application composed of a backend API in Node.js (TypeScript)
 
 ### Installing
 
--   Install dependencies:
+Install dependencies:
 
-    ```shell
-    npm i
-    ```
+```shell
+npm i
+```
 
--   Create a copy of **.env.example** and rename it to **.env**. Replace the placeholders with your environment parameters.
--   Create a database with the same name as specified in the **.env** file.
--   Execute the fixtures in the database:
+Create a copy of **.env.example** and rename it to **.env**. Replace the placeholders with your environment parameters.
 
-    ```shell
-    npm run fixtures
-    ```
+Create a database with the same name as specified in the **.env** file.
 
--   Launch the development server:
+Execute the fixtures in the database:
 
-    ```shell
-    npm run serve
-    ```
+```shell
+npm run fixtures
+```
 
--   The API will be accessible at [localhost:3000/docs](http://localhost:3000/docs).
+Run the development server:
+
+```shell
+npm run serve
+```
+
+The API will be accessible at [localhost:3000/docs](http://localhost:3000/docs).
+
+### Run compilation
 
 Launch TypeScript to JavaScript compilation:
 
